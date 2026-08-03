@@ -18,7 +18,7 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
       <div className="mb-8">
         <h1 className="text-2xl font-bold">Edit Produk</h1>
         <p className="text-muted-foreground">
-          Perbarui informasi produk: {product.nama}
+          Perbarui informasi produk: {product.name}
         </p>
       </div>
       <ProductForm mode="edit" initialData={product} />
