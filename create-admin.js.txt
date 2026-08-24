@@ -1,0 +1,17 @@
+const { PrismaClient } = require('@prisma/client')
+const bcrypt = require('bcryptjs')
+async function main(){
+  const prisma = new PrismaClient()
+  const hash = await bcrypt.hash('admin123', 10)
+  await prisma.user.deleteMany({})
+  await prisma.user.create({
+    data: {
+      email: 'admin@riswan.com',
+      name: 'Riswan',
+      password: hash
+    }
+  })
+  console.log('SUCCESS: admin@riswan.com / admin123')
+  await prisma.$disconnect()
+}
+main()
