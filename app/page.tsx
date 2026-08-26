@@ -16,7 +16,7 @@ export default function Home(){
       </header>
       <main style={{maxWidth:1100,margin:"0 auto",padding:24}}>
         <h2 style={{fontSize:26,fontWeight:"bold"}}>Katalog - {f.length} Produk</h2>
-        <p style={{color:"#666",marginBottom:16}}>{produk.length===0?"Belum ada produk. Klik Tambah di /admin/produk":"Koleksi terbaik"}</p>
+        <p style={{color:"#666",marginBottom:16}}>Koleksi terbaik</p>
         {f.length===0?(
           <div style={{background:"white",border:"1px dashed #ccc",borderRadius:16,padding:48,textAlign:"center"}}>
             <div style={{fontSize:48}}>📦</div><p>Belum ada produk</p>
@@ -27,7 +27,11 @@ export default function Home(){
             {f.map(p=>(
               <div key={p.id} style={{background:"white",borderRadius:16,overflow:"hidden",border:"1px solid #eee"}}>
                 <div style={{height:160,background:"linear-gradient(135deg,#667eea,#764ba2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:48}}>📦</div>
-                <div style={{padding:16}}><div style={{fontWeight:"600"}}>{p.nama}</div><div style={{fontWeight:"bold"}}>Rp{Number(p.harga).toLocaleString("id-ID")}</div></div>
+                <div style={{padding:16}}>
+                  <div style={{fontWeight:"600"}}>{p.nama}</div>
+                  <div style={{fontSize:12,color:"#666"}}>{p.kat} {p.sat&&"• "+p.sat}</div>
+                  <div style={{fontWeight:"bold",marginTop:4}}>Rp{Number(p.harga).toLocaleString("id-ID")} {p.sat&&"/ "+p.sat}</div>
+                </div>
               </div>
             ))}
           </div>
