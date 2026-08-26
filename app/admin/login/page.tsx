@@ -1,29 +1,24 @@
 ﻿"use client"
-import { useState } from "react"
+import {useState} from "react"
+import {useRouter} from "next/navigation"
 export default function Login(){
-  const [email,setEmail]=useState("admin@example.com")
-  const [pass,setPass]=useState("admin123")
-  const submit=(e:any)=>{
-    e.preventDefault()
-    if(email==="admin@example.com" && pass==="admin123"){
-      localStorage.setItem("isAdmin","true")
-      document.cookie="admin-auth=true; path=/; max-age=86400"
-      window.location.href="/admin"
-    } else {
-      alert("Email atau password salah")
-    }
+  const [u,setU]=useState(""); const [p,setP]=useState(""); const [err,setErr]=useState("")
+  const r=useRouter()
+  const login=()=>{
+    if(u==="admin" && p==="admin123"){document.cookie="admin=1; path=/"; r.push("/admin")} else setErr("Username / password salah! (admin / admin123)")
   }
-  return(
-    <div style={{display:"flex",justifyContent:"center",paddingTop:80}}>
-      <form onSubmit={submit} style={{width:360,border:"1px solid #ddd",padding:24,borderRadius:12}}>
-        <h1>Admin Login</h1>
-        <p>Nuclear Mode - No DB - fb5c42d FIX</p>
-        <label>Email</label>
-        <input value={email} onChange={e=>setEmail(e.target.value)} style={{width:"100%",padding:8,margin:"8px 0"}}/>
-        <label>Password</label>
-        <input type="password" value={pass} onChange={e=>setPass(e.target.value)} style={{width:"100%",padding:8,margin:"8px 0"}}/>
-        <button type="submit" style={{width:"100%",padding:10,marginTop:16,background:"black",color:"white",borderRadius:8}}>LOGIN</button>
-      </form>
+  return (
+    <div style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"#f8f8f8",fontFamily:"system-ui"}}>
+      <div style={{background:"white",padding:32,borderRadius:20,border:"1px solid #eee",width:380,boxShadow:"0 4px 20px rgba(0,0,0,0.05)"}}>
+        <h1 style={{fontSize:24,fontWeight:"800",marginBottom:4}}>Smart Catalogue Pro</h1>
+        <p style={{color:"#666",marginBottom:24}}>Admin Login</p>
+        <input placeholder="Username" value={u} onChange={e=>setU(e.target.value)} style={{width:"100%",padding:"12px",border:"1px solid #ddd",borderRadius:10,marginBottom:12}}/>
+        <input placeholder="Password" type="password" value={p} onChange={e=>setP(e.target.value)} style={{width:"100%",padding:"12px",border:"1px solid #ddd",borderRadius:10,marginBottom:16}}/>
+        {err&&<p style={{color:"red",fontSize:13,marginBottom:12}}>{err}</p>}
+        <button onClick={login} style={{width:"100%",padding:"12px",background:"black",color:"white",borderRadius:10,fontWeight:"bold"}}>Masuk Dashboard</button>
+        <p style={{fontSize:12,color:"#999",marginTop:12,textAlign:"center"}}>Demo: admin / admin123</p>
+        <a href="/" style={{display:"block",textAlign:"center",marginTop:16,color:"#666",textDecoration:"none"}}>← Lihat Katalog</a>
+      </div>
     </div>
   )
 }
