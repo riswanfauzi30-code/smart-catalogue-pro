@@ -4,63 +4,65 @@ export default function Home(){
   const [produk,setProduk]=useState<any[]>([])
   const [kategori,setKategori]=useState<any[]>([])
   const [q,setQ]=useState("")
-  const [katFilter,setKatFilter]=useState("")
+  const [kat,setKat]=useState("")
   useEffect(()=>{
     setProduk(JSON.parse(localStorage.getItem("produk")||"[]"))
     setKategori(JSON.parse(localStorage.getItem("kategori")||"[]"))
   },[])
   const filtered=produk.filter(p=>{
-    const matchQ=p.nama.toLowerCase().includes(q.toLowerCase())
-    const matchKat=katFilter? p.kat===katFilter : true
-    return matchQ && matchKat
+    const mQ=p.nama.toLowerCase().includes(q.toLowerCase())
+    const mK=kat? p.kat===kat : true
+    return mQ && mK
   })
   return (
-    <div style={{minHeight:"100vh",background:"#fff",fontFamily:"Inter,system-ui"}}>
-      <header style={{position:"sticky",top:0,zIndex:20,background:"white",borderBottom:"1px solid #e5e7e9"}}>
-        <div style={{background:"#03ac0e",height:4}}/>
-        <div style={{maxWidth:1200,margin:"0 auto",padding:"12px 16px",display:"flex",gap:12,alignItems:"center"}}>
-          <div style={{fontWeight:"900",color:"#03ac0e",fontSize:22,letterSpacing:-0.5}}>tokopedia</div>
-          <div style={{flex:1,position:"relative"}}>
-            <input value={q} onChange={e=>setQ(e.target.value)} placeholder="Cari di Tokopedia" style={{width:"100%",padding:"10px 40px 10px 16px",border:"1px solid #e5e7e9",borderRadius:8,outline:"none"}}/>
-            <div style={{position:"absolute",right:12,top:10}}>🔍</div>
+    <div style={{minHeight:"100vh",background:"#f0f6ff",fontFamily:"system-ui"}}>
+      <header style={{background:"linear-gradient(90deg,#003d79,#0060af)",color:"white",position:"sticky",top:0,zIndex:20,boxShadow:"0 2px 12px rgba(0,61,121,0.3)"}}>
+        <div style={{maxWidth:1200,margin:"0 auto",padding:"14px 20px",display:"flex",gap:16,alignItems:"center"}}>
+          <div style={{display:"flex",alignItems:"center",gap:8}}>
+            <div style={{width:32,height:32,background:"white",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",color:"#0060af",fontWeight:"900"}}>S</div>
+            <div><div style={{fontWeight:"900",fontSize:18,lineHeight:1}}>Smart Catalogue</div><div style={{fontSize:10,opacity:0.8,letterSpacing:1}}>BCA STYLE • PRO</div></div>
           </div>
-          <a href="/admin" style={{padding:"8px 16px",border:"1px solid #03ac0e",color:"#03ac0e",borderRadius:8,textDecoration:"none",fontWeight:"700",fontSize:13}}>Admin</a>
-          <button onClick={()=>{document.cookie="admin=; path=/; max-age=0"; location.href="/admin/login"}} style={{padding:"8px 12px",background:"#f5f5f5",borderRadius:8,border:"none"}}>Logout</button>
+          <div style={{flex:1,maxWidth:600,position:"relative"}}>
+            <input value={q} onChange={e=>setQ(e.target.value)} placeholder="Cari produk supplies..." style={{width:"100%",padding:"11px 40px 11px 16px",borderRadius:10,border:"none",outline:"none",background:"white",color:"#003d79"}}/>
+            <span style={{position:"absolute",right:14,top:11}}>🔍</span>
+          </div>
+          <a href="/admin" style={{background:"white",color:"#0060af",padding:"9px 18px",borderRadius:10,textDecoration:"none",fontWeight:"800",fontSize:13}}>Admin</a>
+          <button onClick={()=>{document.cookie="admin=; path=/; max-age=0"; location.href="/admin/login"}} style={{background:"rgba(255,255,255,0.2)",color:"white",border:"1px solid rgba(255,255,255,0.3)",padding:"9px 14px",borderRadius:10,cursor:"pointer"}}>Logout</button>
         </div>
-        <div style={{maxWidth:1200,margin:"0 auto",padding:"8px 16px",display:"flex",gap:8,overflowX:"auto"}}>
-          <button onClick={()=>setKatFilter("")} style={{padding:"6px 14px",borderRadius:20,border:katFilter===""?"1px solid #03ac0e":"1px solid #e5e7e9",background:katFilter===""?"#e8f8e9":"white",color:katFilter===""?"#03ac0e":"#666",whiteSpace:"nowrap",fontSize:13,fontWeight:"600"}}>Semua</button>
-          {kategori.map((k:any)=><button key={k.id} onClick={()=>setKatFilter(k.nama)} style={{padding:"6px 14px",borderRadius:20,border:katFilter===k.nama?"1px solid #03ac0e":"1px solid #e5e7e9",background:katFilter===k.nama?"#e8f8e9":"white",color:katFilter===k.nama?"#03ac0e":"#666",whiteSpace:"nowrap",fontSize:13}}>{k.nama}</button>)}
-          <a href="/admin/kategori" style={{padding:"6px 14px",borderRadius:20,border:"1px dashed #ccc",color:"#999",textDecoration:"none",fontSize:13,whiteSpace:"nowrap"}}>+ Kategori</a>
+        <div style={{background:"rgba(255,255,255,0.1)",backdropFilter:"blur(10px)"}}>
+          <div style={{maxWidth:1200,margin:"0 auto",padding:"10px 20px",display:"flex",gap:8,overflowX:"auto"}}>
+            <button onClick={()=>setKat("")} style={{padding:"6px 16px",borderRadius:20,border:"none",background:kat===""?"white":"rgba(255,255,255,0.2)",color:kat===""?"#0060af":"white",fontWeight:"700",fontSize:13,whiteSpace:"nowrap"}}>Semua Produk</button>
+            {kategori.map((k:any)=><button key={k.id} onClick={()=>setKat(k.nama)} style={{padding:"6px 16px",borderRadius:20,border:"none",background:kat===k.nama?"white":"rgba(255,255,255,0.2)",color:kat===k.nama?"#0060af":"white",fontSize:13,whiteSpace:"nowrap"}}>{k.nama}</button>)}
+          </div>
         </div>
       </header>
-      <div style={{maxWidth:1200,margin:"0 auto",padding:"16px"}}>
-        <div style={{background:"linear-gradient(90deg,#03ac0e,#00d2ff)",borderRadius:12,padding:20,color:"white",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-          <div><div style={{fontWeight:"800",fontSize:18}}>Smart Catalogue Pro</div><div style={{fontSize:13,opacity:0.9}}>Belanja kebutuhan supplies lebih mudah • {produk.length} produk tersedia</div></div>
-          <div style={{background:"white",color:"#03ac0e",padding:"8px 16px",borderRadius:8,fontWeight:"800",fontSize:13}}>{filtered.length} Produk</div>
+
+      <div style={{maxWidth:1200,margin:"0 auto",padding:"20px"}}>
+        <div style={{background:"white",borderRadius:16,padding:20,display:"flex",justifyContent:"space-between",alignItems:"center",boxShadow:"0 4px 20px rgba(0,96,175,0.08)",border:"1px solid #d6e6ff"}}>
+          <div><h1 style={{fontSize:20,fontWeight:"900",color:"#003d79"}}>Katalog Supplies • {filtered.length} Produk</h1><p style={{color:"#6b8ab0",fontSize:13,marginTop:4}}>Background biru BCA + putih bersih • Update terbaru {new Date().toLocaleDateString("id-ID")}</p></div>
+          <div style={{background:"#0060af",color:"white",padding:"10px 18px",borderRadius:10,fontWeight:"800"}}>{produk.length} Item</div>
         </div>
-        <div style={{marginTop:20}}>
-          <h2 style={{fontWeight:"800",fontSize:16,marginBottom:12}}>Untuk Kamu • <span style={{color:"#03ac0e"}}>{filtered.length} produk</span></h2>
-          {filtered.length===0?(
-            <div style={{textAlign:"center",padding:40,border:"1px dashed #ddd",borderRadius:12}}><div style={{fontSize:48}}>🛒</div><p>Produk tidak ditemukan</p><a href="/admin/produk" style={{display:"inline-block",marginTop:10,padding:"10px 20px",background:"#03ac0e",color:"white",borderRadius:8,textDecoration:"none",fontWeight:"700"}}>Tambah Produk</a></div>
-          ):(
-            <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(170px,1fr))",gap:12}}>
-              {filtered.map((p:any)=>(
-                <div key={p.id} style={{border:"1px solid #e5e7e9",borderRadius:8,overflow:"hidden",background:"white"}}>
-                  <div style={{height:150,background:"#f9f9f9",display:"flex",alignItems:"center",justifyContent:"center",position:"relative"}}>
-                    <div style={{fontSize:40}}>📦</div>
-                    <div style={{position:"absolute",top:8,left:8,background:"rgba(0,0,0,0.05)",padding:"2px 6px",borderRadius:4,fontSize:10}}>{p.kat||"Umum"}</div>
-                  </div>
-                  <div style={{padding:10}}>
-                    <div style={{fontSize:13,lineHeight:"1.3",height:34,overflow:"hidden"}}>{p.nama}</div>
-                    <div style={{fontWeight:"800",color:"#ff6900",marginTop:6,fontSize:14}}>Rp{Number(p.harga).toLocaleString("id-ID")}</div>
-                    <div style={{fontSize:11,color:"#666",marginTop:2}}>{p.sat? `per ${p.sat}`:""} • {p.kat}</div>
-                    <div style={{display:"flex",alignItems:"center",gap:4,marginTop:6}}><span style={{color:"#ffc400",fontSize:11}}>★★★★★</span><span style={{fontSize:11,color:"#999"}}>500+ terjual</span></div>
+
+        {filtered.length===0?(
+          <div style={{background:"white",borderRadius:16,padding:60,textAlign:"center",marginTop:16,border:"1px solid #d6e6ff"}}><div style={{fontSize:50}}>📦</div><p style={{color:"#6b8ab0",marginTop:8}}>Belum ada produk</p><a href="/admin/produk" style={{display:"inline-block",marginTop:12,padding:"12px 24px",background:"#0060af",color:"white",borderRadius:10,textDecoration:"none",fontWeight:"700"}}>+ Tambah Produk Pertama</a></div>
+        ):(
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(220px,1fr))",gap:14,marginTop:16}}>
+            {filtered.map((p:any)=>(
+              <div key={p.id} style={{background:"white",borderRadius:14,overflow:"hidden",border:"1px solid #d6e6ff",boxShadow:"0 2px 10px rgba(0,96,175,0.06)"}}>
+                <div style={{height:8,background:"linear-gradient(90deg,#003d79,#0060af)"}}/>
+                <div style={{height:130,background:"#f7fbff",display:"flex",alignItems:"center",justifyContent:"center",fontSize:36}}>📦</div>
+                <div style={{padding:14}}>
+                  <div style={{fontSize:13,fontWeight:"700",color:"#003d79",height:36,overflow:"hidden"}}>{p.nama}</div>
+                  <div style={{fontSize:11,color:"#6b8ab0",marginTop:4}}>{p.kat||"SUPPLIES"} {p.sat? `• ${p.sat}`:""}</div>
+                  <div style={{marginTop:10,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                    <div style={{fontWeight:"900",color:"#0060af",fontSize:15}}>Rp{Number(p.harga).toLocaleString("id-ID")}</div>
+                    <div style={{fontSize:10,background:"#e8f1ff",color:"#0060af",padding:"4px 8px",borderRadius:20,fontWeight:"700"}}>{p.sat||"Pcs"}</div>
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )
