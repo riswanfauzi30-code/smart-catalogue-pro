@@ -1,7 +1,3 @@
-export default function AdminRootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return <div className="min-h-screen bg-muted/30">{children}</div>;
+﻿export default function AdminLayout({children}:{children:React.ReactNode}){
+  return <div>{children}</div>
 }
