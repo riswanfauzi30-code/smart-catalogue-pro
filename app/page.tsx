@@ -18,7 +18,10 @@ export default function Home(){
     <div style={{minHeight:"100vh",background:"#F1F5F8",fontFamily:"system-ui"}}>
       <header style={{background:"#0066AE",color:"white",position:"sticky",top:0,zIndex:20}}>
         <div style={{maxWidth:1200,margin:"0 auto",padding:"14px 20px",display:"flex",gap:16,alignItems:"center"}}>
-          <div style={{width:36,height:36,background:"white",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",color:"#0066AE",fontWeight:"900"}}>BCA</div>
+          <div style={{display:"flex",alignItems:"center",gap:10}}>
+            <div style={{width:38,height:38,background:"white",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",color:"#0066AE",fontWeight:"900",fontSize:14,letterSpacing:-0.5}}>RF</div>
+            <div style={{lineHeight:1.1}}><div style={{fontWeight:"900",fontSize:16}}>RF Smart Catalogue</div><div style={{fontSize:10,opacity:0.85}}>BCA Blue #0066AE • Official Palette</div></div>
+          </div>
           <div style={{flex:1,maxWidth:600,position:"relative"}}>
             <input value={q} onChange={e=>setQ(e.target.value)} placeholder="Cari di katalog..." style={{width:"100%",padding:"11px 40px 11px 16px",borderRadius:10,border:"2px solid #2FA6FC",outline:"none"}}/>
             <span style={{position:"absolute",right:14,top:11}}>🔍</span>
